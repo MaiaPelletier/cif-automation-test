@@ -13,8 +13,7 @@ raw_data <- get_cansim("13-10-0096-01", factors = FALSE)
 geocodes <- read_csv("geocodes.csv")
 
 
-#Format table 
-
+# Format table 
 fruits_veg <- 
   raw_data %>%
   filter(Indicators == "Fruit and vegetable consumption, 5 times or more per day", 
@@ -27,8 +26,7 @@ fruits_veg <-
   relocate(GeoCode, .before = Value)
 
 
-#Create the aggregate line
-
+# Create the aggregate line
 total <- 
   fruits_veg %>%
   filter(Geography == "Canada", `Age group` == "Total, 12 years and over", 
@@ -36,8 +34,7 @@ total <-
   mutate_at(2:(ncol(.)-2), ~ "")
 
 
-#Create the non - aggregate line
-
+# Create the non - aggregate line
 fruits_veggies <- 
   fruits_veg %>%
   filter(!(Geography == "Canada"& `Age group` == "Total, 12 years and over"&
@@ -52,5 +49,5 @@ fruits_veggies <-
 names(final_data)[2:(ncol(final_data)-2)] <- paste0("data.", names(final_data)[2:(ncol(final_data)-2)])
 
 
-write_csv(final_data, "CIF/data/indicator_3-1-1.csv", na = "")
+# write_csv(final_data, "indicator_3-1-1.csv", na = "")
 

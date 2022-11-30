@@ -14,6 +14,12 @@ geocodes <- data.frame(
   Geography = c('Newfoundland and Labrador', 'Prince Edward Island', 'Nova Scotia', 'New Brunswick', 'Quebec', 'Ontario', 'Manitoba', 'Saskatchewan', 'Alberta', 'British Columbia', 'Yukon', 'Northwest Territories', 'Nunavut')
 )
 
+indicator_file <- function(indicator, ext = c("R", "csv")) {
+  
+  paste0("indicator_", indicator, ext)
+  
+}
+
 
 get_current_ref_date <- function(table_no) {
   
