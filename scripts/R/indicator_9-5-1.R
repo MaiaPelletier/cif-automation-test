@@ -2,7 +2,6 @@
 
 # load libraries
 library(dplyr)
-library(readr)
 library(cansim)
 
 
@@ -10,7 +9,7 @@ library(cansim)
 Raw_data <- get_cansim("36-10-0655-01", factors = FALSE)
 
 # load geocode
-geocodes <- read_csv("geocodes.csv")
+geocodes <- read.csv("geocodes.csv")
 
 selected_assets <- c("Total assets",
                      "Commercial buildings",
@@ -63,5 +62,5 @@ final_data <-
   bind_rows(total, non_total) %>% 
   rename_at(c(2:(ncol(.) - 2)), ~ paste0("data.", .x))
 
-write_csv(final_data, "data/indicator_9-5-1.csv", na = "")
+write.csv(final_data, "data/indicator_9-5-1.csv", na = "", row.names = F)
 
