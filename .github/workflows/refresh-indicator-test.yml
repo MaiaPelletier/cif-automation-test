@@ -15,9 +15,15 @@
 
 name: Data update
 
+#on:
+#  schedule:
+#    - cron: '0 23 * * 3'
+    
 on:
-  schedule:
-    - cron: '0 23 * * 3'
+  push:
+    branches:
+      - develop
+      
 
 jobs:
   data-update:
@@ -53,21 +59,21 @@ jobs:
         source('automation_script.R')
       shell: Rscript {0}
   
-#    - name: Check if there are any changes
-#      id: verify_diff
-#      run: |
-#        git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+    - name: Check if there are any changes
+      id: verify_diff
+      run: |
+        git diff --quiet . || echo "::set-output name=new_data_exists::true"
 
     - name: Commit files
-#      if: steps.verify_diff.outputs.changed == 'true'
+      if: steps.verify_diff.outputs.new_data_exists == 'true'
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add .
-        git commit -m "Add changes"
+        git commit -m "Add new data updates"
 
     - name: Push changes
-#      if: steps.verify_diff.outputs.changed == 'true'
+      if: steps.verify_diff.outputs.new_data_exists == 'true'
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
