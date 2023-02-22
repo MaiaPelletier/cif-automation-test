@@ -54,10 +54,10 @@ jobs:
         source('automation_script.R')
       shell: Rscript {0}
   
-    - name: Check if there are any changes
-      id: verify_diff
-      run: |
-        git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+#    - name: Check if there are any changes
+#      id: verify_diff
+#      run: |
+#        git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
 
     - name: Commit files
       if: steps.verify_diff.outputs.changed == 'true'
