@@ -16,9 +16,8 @@
 name: Data update
 
 on:
-  push:
-    branches:
-      - develop
+  schedule:
+    - cron: '0 23 * * 3'
 
 jobs:
   data-update:
