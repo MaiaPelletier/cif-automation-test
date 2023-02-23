@@ -85,16 +85,12 @@ update_sdg_data <- function() {
     
     for (indicator in required_updates) {
       
-      # source(file.path("R", paste0("indicator_", indicator, ".R")))
+      source(file.path("R", paste0("indicator_", indicator, ".R")))
       print(paste0("indicator ", indicator, " has been updated"))
       
     }
     
-    quit(status = 0)
-    
-  } else {
-    
-    quit(status = 1)
+    # quit(status = 0)
     
   }
   
