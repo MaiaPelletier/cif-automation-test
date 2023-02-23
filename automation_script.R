@@ -3,17 +3,7 @@
 # Author: Maia Pelletier
 # Script to automate the updating of the Open SDG data hub.
 #
-# TODO: If data rows are less than < old data rows, return error!!!!!
-# TODO: Handle a source changing for an indicator (i.e. no longer use automation
-# code so that updates don't override new data from new source)
-# TODO: MAYBE create a codeset with indicator:source correspondences (cleaner
-# than extracting from code but likely will need to be manually updated)
-# TODO: replace "source" with R package with functions
-# TODO: add a dependency for site build to staging (maybe)
-# TODO: review all automation codes for bugs / data errors 
-# TODO: (find way to auto compare tables?)
-# TODO: add check for data names == source data names
-# TODO: get rid of "for" loop and use purrr::map() instead
+# TODO: return None if no updates required
 ##########################################################################
 
 
@@ -88,12 +78,23 @@ update_sdg_data <- function() {
     
   }
   
-  print(required_updates)
-  
-  for (indicator in required_updates) {
+  if (length(required_updates > 0)) {
     
-    source(file.path("R", paste0("indicator_", indicator, ".R")))
-    print(paste0("indicator ", indicator, " has been updated"))
+    print(paste0("data to be updated:",
+                 paste0(required_updates, collapse = ", ")))
+    
+    for (indicator in required_updates) {
+      
+      # source(file.path("R", paste0("indicator_", indicator, ".R")))
+      print(paste0("indicator ", indicator, " has been updated"))
+      
+    }
+    
+    quit(status = 0)
+    
+  } else {
+    
+    quit(status = 1)
     
   }
   
