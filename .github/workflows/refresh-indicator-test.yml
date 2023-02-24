@@ -17,7 +17,7 @@ name: Data update
 
 on:
  schedule:
-   - cron: '0 23 * * 3'
+   - cron: '0 15 * * *'
     
 # on:
 #   push:
